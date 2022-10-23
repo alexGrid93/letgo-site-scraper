@@ -17,7 +17,9 @@ bot.start((ctx) => {
 
     await ctx.reply("⏳ Запускаю браузер . . .");
     // запускаем браузер
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
 
     await ctx.reply("⏳ Открываю вкладку . . .");
     // создаём страницу

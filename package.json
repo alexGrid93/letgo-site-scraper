@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "test",
-    "start": "node index"
+    "start": "npm i node index"
   },
   "author": "alexander gridyaev",
   "license": "ISC",
