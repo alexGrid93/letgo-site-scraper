@@ -18,6 +18,8 @@ bot.start((ctx) => {
     await ctx.reply("⏳ Запускаю браузер . . .");
     // запускаем браузер
     const browser = await puppeteer.launch({
+      executablePath:
+        "./node_modules/chromium/lib/chromium/chrome-linux/chrome",
       headless: true,
       defaultViewport: null,
       args: ["--incognito", "--no-sandbox", "--single-process", "--no-zygote"],
