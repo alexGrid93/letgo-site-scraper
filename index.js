@@ -7,6 +7,7 @@ const bot = new Telegraf(telegramBotToken); //сюда помещается то
 const urlToGo =
   "https://www.letgo.com/alanya_g5000085/q-Mikrodalga?isSearchCall=true";
 
+console.log("Я запущен, всё ок!");
 bot.start((ctx) => {
   (async () => {
     console.log("поехали");
