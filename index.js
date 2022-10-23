@@ -114,10 +114,7 @@ bot.start((ctx) => {
           // Обновляем название и цену
           titleOfTheLastItem = titleOfTheLastItemAfterReload;
           priceOfTheLastItem = priceOfTheLastItemAfterReload;
-        } else {
-          ctx.reply("новый товар не появился");
         }
-
         console.log(`${new Date()}, всё отработало норм`);
       } catch (e) {
         console.log(e);
