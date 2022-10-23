@@ -75,7 +75,7 @@ bot.start((ctx) => {
 
     setInterval(async () => {
       // перезагружаем страницу
-      await page.reload();
+      await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
 
       try {
         // находим название восьмого товара
