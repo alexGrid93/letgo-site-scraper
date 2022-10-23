@@ -77,45 +77,51 @@ bot.start((ctx) => {
       // перезагружаем страницу
       await page.reload();
 
-      // находим название восьмого товара
-      const titleOfTheLastItemAfterReload = await page.evaluate(
-        () =>
-          Array.from(document.querySelectorAll("[data-aut-id='itemTitle']"))[7]
-            .textContent
-      );
-
-      // находим цену восьмого товара
-      const priceOfTheLastItemAfterReload = await page.evaluate(
-        () =>
-          Array.from(document.querySelectorAll("[data-aut-id='itemPrice']"))[7]
-            .textContent
-      );
-
-      // Если у последнего товара не совпадает название или цена
-      if (
-        titleOfTheLastItem !== titleOfTheLastItemAfterReload ||
-        priceOfTheLastItem !== priceOfTheLastItemAfterReload
-      ) {
-        // делаем скрин
-
-        await page.screenshot({ path: "newScreen.png", fullPage: true });
-
-        // уведомляем
-        await ctx.replyWithPhoto(
-          { source: "./newScreen.png" },
-          {
-            caption: `Появился новый товар. Вот ссылка: ${urlToGo} `,
-          }
+      try {
+        // находим название восьмого товара
+        const titleOfTheLastItemAfterReload = await page.evaluate(
+          () =>
+            Array.from(
+              document.querySelectorAll("[data-aut-id='itemTitle']")
+            )[7].textContent
         );
 
-        // Обновляем название и цену
-        titleOfTheLastItem = titleOfTheLastItemAfterReload;
-        priceOfTheLastItem = priceOfTheLastItemAfterReload;
-      } else {
-        ctx.reply("новый товар не появился");
-      }
+        // находим цену восьмого товара
+        const priceOfTheLastItemAfterReload = await page.evaluate(
+          () =>
+            Array.from(
+              document.querySelectorAll("[data-aut-id='itemPrice']")
+            )[7].textContent
+        );
 
-      console.log(`${new Date()}, всё отработало норм`);
+        // Если у последнего товара не совпадает название или цена
+        if (
+          titleOfTheLastItem !== titleOfTheLastItemAfterReload ||
+          priceOfTheLastItem !== priceOfTheLastItemAfterReload
+        ) {
+          // делаем скрин
+
+          await page.screenshot({ path: "newScreen.png", fullPage: true });
+
+          // уведомляем
+          await ctx.replyWithPhoto(
+            { source: "./newScreen.png" },
+            {
+              caption: `Появился новый товар. Вот ссылка: ${urlToGo} `,
+            }
+          );
+
+          // Обновляем название и цену
+          titleOfTheLastItem = titleOfTheLastItemAfterReload;
+          priceOfTheLastItem = priceOfTheLastItemAfterReload;
+        } else {
+          ctx.reply("новый товар не появился");
+        }
+
+        console.log(`${new Date()}, всё отработало норм`);
+      } catch (e) {
+        console.log(e);
+      }
     }, 60000);
   })();
 });
