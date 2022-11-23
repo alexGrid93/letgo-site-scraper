@@ -38,7 +38,7 @@ bot.start((ctx) => {
     console.log("перешли по адресу");
 
     // ждём, пока подгрузятся остальные данные
-    await page.waitForTimeout(3000);
+    await page.waitForResponse(3000);
 
     console.log("подождали");
 
@@ -75,7 +75,9 @@ bot.start((ctx) => {
 
     setInterval(async () => {
       // перезагружаем страницу
-      await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
+      await page.goto(urlToGo);
+
+      await page.waitForResponse(3000);
 
       try {
         // находим название восьмого товара
